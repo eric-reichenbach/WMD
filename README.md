@@ -8,6 +8,8 @@ The project went further than I expected so I decided to share it.
 
 A "compiled" version is available in the dist folder.
 
+(by the way, if your computer explode while using this app, it's not my fault, and you are not allowed use it to summon an army of daemons, it's in the law)
+
 ## Main features
 - easy to use
 - no installation, everything is done in the starting folder (by default where the .exe is)
