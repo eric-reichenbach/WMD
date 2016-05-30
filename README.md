@@ -1,8 +1,12 @@
+![alt WMDguy](https://raw.githubusercontent.com/EricReichenbach/WMD/master/readme/WMDguy.png "WMDguy")
+
 # WMD (Wad Manager for Doom)
 
 WMD is a small  project I started to easily launch Doom wads and play easily.
 
 The project went further than I expected so I decided to share it.
+
+A "compiled" version is available in the dist folder.
 
 ## Main features
 - easy to use
@@ -23,7 +27,7 @@ The project went further than I expected so I decided to share it.
  - source port association
  - can be prepared in a zip file and shared (see the "How to cook a pack" section)
 
-[alt Screenshot](./readme/WMD.png "Screenshot")
+![alt Screenshot](https://raw.githubusercontent.com/EricReichenbach/WMD/master/readme/WMD.png "Screenshot")
 
 ## Requirements
 
