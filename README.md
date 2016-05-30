@@ -2,7 +2,7 @@
 
 # WMD (Wad Manager for Doom)
 
-WMD is a small  project I started to easily launch Doom wads and play easily.
+WMD is a small project I started to easily launch Doom wads.
 
 The project went further than I expected so I decided to share it.
 
