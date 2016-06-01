@@ -6,7 +6,7 @@ WMD is a small project I started to easily launch Doom wads.
 
 The project went further than I expected so I decided to share it.
 
-A "compiled" version is available in the dist folder.
+[Get the latest release](https://github.com/EricReichenbach/WMD/releases/latest "Latest Releases")
 
 (by the way, if your computer explode while using this app, it's not my fault, and you are not allowed use it to summon an army of daemons, it's in the law)
 
