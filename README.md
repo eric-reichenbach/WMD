@@ -69,9 +69,9 @@ Just create the xml file with the references to the wads, create your config fil
 
 ##Localisation
 
-You can localise this app through an XML file. One is already available in french in the folder locale/fr/.
+You can localise this app through an XML file. A french localisation is already available in the folder locale/fr/.
 
-To use the localisation file, you just have to put in the same folder as the executable.
+To use the localisation file, you just have to put it in the same folder as the executable.
 
 ## Contributions
 
