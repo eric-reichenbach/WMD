@@ -39,6 +39,7 @@ namespace WMD
             try
             {
                 DGRIDV_MODS.DataSource = new ModList();
+
                 if (!string.IsNullOrEmpty(pm.SrcPrt))
                 {
                     setSrcPrt(pm.SrcPrt);
@@ -51,6 +52,7 @@ namespace WMD
                                pm.txt("Error"),
                                MessageBoxButtons.OK);
             }
+            // DGRIDV_MODS.Sort(DGRIDV_MODS.Columns[2], ListSortDirection.Descending);
         }
 
         public void ExecuteCommandSync(string path, string command)
@@ -282,29 +284,46 @@ namespace WMD
         void DGRIDV_MODS_DragDrop(object sender, DragEventArgs e)
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            //var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
             {
-                var fi = new FileInfo(file);
-                if (fi.Extension.ToLower().Equals(".dpz"))
+                if (File.Exists(file))
                 {
-                    try
+                    var fi = new FileInfo(file);
+                    if (fi.Extension.ToLower().Equals(".dpz"))
                     {
-                        ZipFile.ExtractToDirectory(fi.FullName, @".");
-                        ModColl mc = pm.readXmlPackage(new FileInfo(@".\\WMF.xml"));
-                        pm.addModColl(mc);
-                        reinitModColl();
-                        LSTB_MODCOLL.Focus();
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            ZipFile.ExtractToDirectory(fi.FullName, @".");
+                            ModColl mc = pm.readXmlPackage(new FileInfo(@".\\WMF.xml"));
+                            pm.addModColl(mc);
+                            reinitModColl();
+                            LSTB_MODCOLL.Focus();
+                        }
+                        catch
+                        {
 
+                        }
+                    }
+                    else
+                    {
+                        int stri = fi.DirectoryName.Length;
+                        string namefile = fi.FullName.Substring(stri + 1, fi.FullName.Length - stri - 1);
+                        File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
                     }
                 }
-                else
+                else if (Directory.Exists(file))
                 {
-                    int stri = fi.DirectoryName.Length;
-                    string namefile = fi.FullName.Substring(stri + 1, fi.FullName.Length - stri - 1);
-                    File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
+                    var di = new DirectoryInfo(file);
+
+                    //int stri = di.DirectoryName.Length;
+                    //string namefile = fi.FullName.Substring(stri + 1, fi.FullName.Length - stri - 1);
+                    Directory.CreateDirectory(PM.MODDIRECTORY + "/" + di.Name);
+                    foreach (string dirPath in Directory.GetDirectories(di.FullName, "*", SearchOption.AllDirectories))
+                        Directory.CreateDirectory(dirPath.Replace(di.FullName, PM.MODDIRECTORY + "/" + di.Name));
+                    foreach (string newPath in Directory.GetFiles(di.FullName, "*.*", SearchOption.AllDirectories))
+                        File.Copy(newPath, newPath.Replace(di.FullName, PM.MODDIRECTORY + "/" + di.Name), true);
+                    //File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
                 }
             }
             DGRIDV_MODS.DataSource = new ModList();
@@ -338,7 +357,7 @@ namespace WMD
             {
                 for (int i = 0; i < DGRIDV_MODS.Rows.Count; i++)
                 {
-                    if (DGRIDV_MODS.Rows[i].DataBoundItem.ToString() == m.fileI.Name)
+                    if (DGRIDV_MODS.Rows[i].DataBoundItem.ToString() == m.displayText)
                     {
                         DGRIDV_MODS.Rows[i].Cells[0].Value = true;
                         DGRIDV_MODS.Rows[i].Cells[1].Value = m.loadOrder;

@@ -1,10 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace WMD
 {
-    class Mod
+    class Mod : System.IComparable
     {
         public FileInfo fileI { get; set; }
+
+        public string displayText { get { return ToString(); } }
 
         public int loadOrder { get; set; }
 
@@ -44,7 +49,28 @@ namespace WMD
 
         public override string ToString()
         {
-            return fileI.Name;
+            var str = fileI.FullName.Replace(new DirectoryInfo(PM.MODDIRECTORY).FullName, "");
+            int count = str.Split('\\').Length - 1;
+            if (count == 1)
+            {
+                str = str.Replace("\\", "");
+
+            }
+            return str;
+        }
+
+        public int CompareTo(object obj)
+        {
+            Mod m = (Mod)obj;
+            if (displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal) && !m.displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal))
+                return -1;
+            if (!displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal) && m.displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal))
+                return 1;
+            /*
+            if (displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal) && (Regex.IsMatch(m.displayText.ToLower().Trim(), @"^\d+")))
+                return -1;
+                */
+            return (string.Compare(displayText.ToLower(), m.displayText.ToLower(), StringComparison.Ordinal));
         }
     }
 }

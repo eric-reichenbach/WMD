@@ -34,10 +34,6 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.DGRIDV_MODS = new System.Windows.Forms.DataGridView();
-            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.loadOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.GBX_SRCPRT = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -62,12 +58,15 @@
             this.CONTEXT_DELETE_DATA = new System.Windows.Forms.ToolStripMenuItem();
             this.CONTEXT_RESET_ENVVAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.loadOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.PAN_CONTENT.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGRIDV_MODS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.GBX_SRCPRT.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -77,6 +76,7 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.CONMSTRIP_WINDOW.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // PAN_CONTENT
@@ -125,6 +125,7 @@
             // 
             this.DGRIDV_MODS.AllowDrop = true;
             this.DGRIDV_MODS.AllowUserToAddRows = false;
+            this.DGRIDV_MODS.AllowUserToOrderColumns = true;
             this.DGRIDV_MODS.AllowUserToResizeColumns = false;
             this.DGRIDV_MODS.AllowUserToResizeRows = false;
             this.DGRIDV_MODS.AutoGenerateColumns = false;
@@ -148,43 +149,6 @@
             this.DGRIDV_MODS.DragDrop += new System.Windows.Forms.DragEventHandler(this.DGRIDV_MODS_DragDrop);
             this.DGRIDV_MODS.DragEnter += new System.Windows.Forms.DragEventHandler(this.DGRIDV_MODS_DragEnter);
             this.DGRIDV_MODS.DoubleClick += new System.EventHandler(this.DGRIDV_MODS_DoubleClick);
-            // 
-            // selected
-            // 
-            this.selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.selected.DataPropertyName = "selected";
-            this.selected.FillWeight = 29.39524F;
-            this.selected.HeaderText = "";
-            this.selected.MinimumWidth = 20;
-            this.selected.Name = "selected";
-            this.selected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.selected.ToolTipText = "Select the wad";
-            this.selected.Width = 32;
-            // 
-            // loadOrder
-            // 
-            this.loadOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.loadOrder.DataPropertyName = "loadOrder";
-            this.loadOrder.FillWeight = 78.8327F;
-            this.loadOrder.HeaderText = "Load order";
-            this.loadOrder.MaxInputLength = 3;
-            this.loadOrder.MinimumWidth = 100;
-            this.loadOrder.Name = "loadOrder";
-            this.loadOrder.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.loadOrder.ToolTipText = "Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "fileI";
-            this.dataGridViewTextBoxColumn1.FillWeight = 181.3152F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Drag/drop WADs, PK3s, DEHs... to add them. Doubleclick on a row to delete the wad" +
-    ".";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // modListBindingSource
-            // 
-            this.modListBindingSource.DataSource = typeof(WMD.ModList);
             // 
             // tableLayoutPanel3
             // 
@@ -460,6 +424,44 @@
             this.CONTEXT_RESET_ENVVAR.Text = "Remove DOOMWADDIR variable";
             this.CONTEXT_RESET_ENVVAR.Click += new System.EventHandler(this.CONTEXT_RESET_ENVVAR_Click);
             // 
+            // selected
+            // 
+            this.selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.selected.DataPropertyName = "selected";
+            this.selected.FillWeight = 29.39524F;
+            this.selected.HeaderText = "";
+            this.selected.MinimumWidth = 20;
+            this.selected.Name = "selected";
+            this.selected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.selected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.selected.ToolTipText = "Select the wad";
+            this.selected.Width = 32;
+            // 
+            // loadOrder
+            // 
+            this.loadOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.loadOrder.DataPropertyName = "loadOrder";
+            this.loadOrder.FillWeight = 78.8327F;
+            this.loadOrder.HeaderText = "Load order";
+            this.loadOrder.MaxInputLength = 3;
+            this.loadOrder.MinimumWidth = 100;
+            this.loadOrder.Name = "loadOrder";
+            this.loadOrder.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.loadOrder.ToolTipText = "Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "displayText";
+            this.dataGridViewTextBoxColumn1.FillWeight = 181.3152F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Drag/drop WADs, PK3s, DEHs... to add them. Doubleclick on a row to delete the wad" +
+    ".";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // modListBindingSource
+            // 
+            this.modListBindingSource.DataSource = typeof(WMD.ModList);
+            // 
             // FORM_MAINWIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +479,6 @@
             this.toolStripContainer1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGRIDV_MODS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.GBX_SRCPRT.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -489,6 +490,7 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.CONMSTRIP_WINDOW.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -521,12 +523,12 @@
         private System.Windows.Forms.ContextMenuStrip CONMSTRIP_WINDOW;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_FOLDER;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_DELETE_DATA;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn loadOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.CheckBox CHKBX_ASSOC_SRCPRT;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_RESET_ENVVAR;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn loadOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
 

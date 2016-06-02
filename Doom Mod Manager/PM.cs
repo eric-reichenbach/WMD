@@ -404,8 +404,10 @@ namespace WMD
                 {
                     Writer.WriteStartElement("Wad");
                     Writer.WriteAttributeString("loadorder", m.loadOrder.ToString());
-
-                    Writer.WriteString(MODDIRECTORY + @"\" + m.fileI.Name);
+                    var filePath = m.fileI.FullName;
+                    var modPath = new DirectoryInfo(MODDIRECTORY);
+                    filePath = filePath.Replace(modPath.FullName, MODDIRECTORY);
+                    Writer.WriteString(filePath);
 
                     Writer.WriteEndElement(); // Mod End Tag
                 }

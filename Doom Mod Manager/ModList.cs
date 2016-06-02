@@ -10,10 +10,13 @@ namespace WMD
             var directory = new DirectoryInfo(PM.MODDIRECTORY);
             if (!directory.Exists)
                 directory.Create();
-            FileInfo[] files = directory.GetFiles();
+            FileInfo[] files = directory.GetFiles("*", SearchOption.AllDirectories);
 
             foreach (FileInfo fi in files)
-                Add(new Mod(fi));
+            {
+                 Add(new Mod(fi));
+            }
+            Sort();
         }
     }
 }
