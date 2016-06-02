@@ -446,6 +446,8 @@ namespace WMD
 
             if (!string.IsNullOrEmpty(FODIA_MODDIR.SelectedPath))
                 pm.MODDIRECTORY = FODIA_MODDIR.SelectedPath;
+            reinitModColl();
+            DGRIDV_MODS.DataSource = new ModList();
         }
 
         private void CONTEXT_GITHUB_Click(object sender, EventArgs e)
