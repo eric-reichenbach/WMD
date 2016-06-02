@@ -5,10 +5,8 @@ namespace WMD
 {
     class Mod : IComparable
     {
-        public FileInfo fileI { get; set; }
-
         public string displayText { get { return ToString(); } }
-
+        public FileInfo fileI { get; set; }
         public int loadOrder { get; set; }
 
         public bool selected { get; set; }
@@ -45,17 +43,6 @@ namespace WMD
             this.loadOrder = i;
         }
 
-        public override string ToString()
-        {
-            var str = fileI.FullName.Replace(new DirectoryInfo(PM.getInstance().MODDIRECTORY).FullName, "");
-            int count = str.Split('\\').Length - 1;
-            if (count == 1)
-            {
-                str = str.Replace("\\", "");
-            }
-            return str;
-        }
-
         public int CompareTo(object obj)
         {
             Mod m = (Mod)obj;
@@ -65,6 +52,17 @@ namespace WMD
                 return 1;
 
             return (string.Compare(displayText.ToLower(), m.displayText.ToLower(), StringComparison.Ordinal));
+        }
+
+        public override string ToString()
+        {
+            var str = fileI.FullName.Replace(new DirectoryInfo(PM.getInstance().MODDIRECTORY).FullName, "");
+            int count = str.Split('\\').Length - 1;
+            if (count == 1)
+            {
+                str = str.Replace("\\", "");
+            }
+            return str;
         }
     }
 }

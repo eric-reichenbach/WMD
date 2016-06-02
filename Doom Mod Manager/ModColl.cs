@@ -9,11 +9,14 @@ namespace WMD
         {
             get { return new FileInfo(PM.CONFIGDIRECTORY + "//" + name + ".ini"); }
         }
+
+        public string name { get; set; }
+
         public DirectoryInfo save
         {
             get { return getSaveDir(); }
         }
-        public string name { get; set; }
+
         public FileInfo srcPrt { get; set; }
 
         public ModColl(string name, string srcPrt)
@@ -25,6 +28,7 @@ namespace WMD
                 this.srcPrt = new FileInfo(srcPrt);
             }
         }
+
         public DirectoryInfo getSaveDir()
         {
             DirectoryInfo di = new DirectoryInfo(PM.SAVEDIRECTORY + "//" + name + "//");
@@ -32,6 +36,7 @@ namespace WMD
                 di.Create();
             return di;
         }
+
         public override string ToString()
         {
             return name + ((srcPrt != null) ? " {" + srcPrt.Name + "}" : "");

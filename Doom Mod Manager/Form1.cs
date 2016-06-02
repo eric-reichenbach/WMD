@@ -12,7 +12,7 @@ namespace WMD
 {
     public partial class FORM_MAINWIN : Form
     {
-        private PM pm = PM.getInstance();
+        readonly PM pm = PM.getInstance();
 
         public FORM_MAINWIN()
         {
@@ -145,21 +145,21 @@ namespace WMD
                     mdStr += " -config \"" + mc.config.FullName + "\"";
                     if (!mc.config.Exists)
                     {
-                        mdStr += " -height " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height + "";
-                        mdStr += " -width " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width + "";
+                        mdStr += " -height " + Screen.PrimaryScreen.Bounds.Height + "";
+                        mdStr += " -width " + Screen.PrimaryScreen.Bounds.Width + "";
                     }
                     mdStr += " -savedir \"" + mc.save.FullName.Replace("\\", "/") + "\"";
                 }
                 else
                 {
-                    mdStr += " -height " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height + "";
-                    mdStr += " -width " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width + "";
+                    mdStr += " -height " + Screen.PrimaryScreen.Bounds.Height + "";
+                    mdStr += " -width " + Screen.PrimaryScreen.Bounds.Width + "";
                 }
             }
             else
             {
-                mdStr += " -height " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height + "";
-                mdStr += " -width " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width + "";
+                mdStr += " -height " + Screen.PrimaryScreen.Bounds.Height + "";
+                mdStr += " -width " + Screen.PrimaryScreen.Bounds.Width + "";
             }
             ExecuteCommandSync("" + path + "", mdStr);
         }
@@ -222,6 +222,22 @@ namespace WMD
         {
             Process.Start("explorer.exe",
                 "/select," + new DirectoryInfo(pm.MODDIRECTORY).FullName);
+        }
+
+        void CONTEXT_GITHUB_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/EricReichenbach/WMD");
+            Process.Start(sInfo);
+        }
+
+        void CONTEXT_MODDIR_Click(object sender, EventArgs e)
+        {
+            FODIA_MODDIR.ShowDialog();
+
+            if (!string.IsNullOrEmpty(FODIA_MODDIR.SelectedPath))
+                pm.MODDIRECTORY = FODIA_MODDIR.SelectedPath;
+            reinitModColl();
+            DGRIDV_MODS.DataSource = new ModList();
         }
 
         void CONTEXT_RESET_ENVVAR_Click(object sender, EventArgs e)
@@ -400,6 +416,12 @@ namespace WMD
             }
         }
 
+        void TIMER_REFRESH_Tick(object sender, EventArgs e)
+        {
+            reinitModColl();
+            DGRIDV_MODS.DataSource = new ModList();
+        }
+
         void TXTBX__MODCOLL_NAME_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -438,28 +460,6 @@ namespace WMD
                 reinitModColl();
                 LSTB_MODCOLL.Focus();
             }
-        }
-
-        private void CONTEXT_MODDIR_Click(object sender, EventArgs e)
-        {
-            FODIA_MODDIR.ShowDialog();
-
-            if (!string.IsNullOrEmpty(FODIA_MODDIR.SelectedPath))
-                pm.MODDIRECTORY = FODIA_MODDIR.SelectedPath;
-            reinitModColl();
-            DGRIDV_MODS.DataSource = new ModList();
-        }
-
-        private void CONTEXT_GITHUB_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/EricReichenbach/WMD");
-            Process.Start(sInfo);
-        }
-
-        private void TIMER_REFRESH_Tick(object sender, EventArgs e)
-        {
-            reinitModColl();
-            DGRIDV_MODS.DataSource = new ModList();
         }
     }
 }

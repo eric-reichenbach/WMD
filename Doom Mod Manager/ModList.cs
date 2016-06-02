@@ -5,7 +5,8 @@ namespace WMD
 {
     class ModList : List<Mod>
     {
-        private PM pm = PM.getInstance();
+        readonly PM pm = PM.getInstance();
+
         public ModList()
         {
             var directory = new DirectoryInfo(pm.MODDIRECTORY);

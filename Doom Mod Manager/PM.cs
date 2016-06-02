@@ -8,19 +8,29 @@ namespace WMD
 {
     class PM
     {
+        public const string _MODDIRECTORY = @".\WMD";
         public const string CONFIGDIRECTORY = @".\WMDCONF";
-        public const string SAVEDIRECTORY = @".\WMDSAVE";
         public const string FILENAME = @".\WMD.xml";
         public const string LANGFILE = @".\wmd-lang.xml";
-        public const string _MODDIRECTORY = @".\WMD";
-
-        List<ModColl> modCollList;
+        public const string SAVEDIRECTORY = @".\WMDSAVE";
         static PM param;
-        Dictionary<string, string> wDict;
+        string customModDir;
         bool disableConfirm;
+        List<ModColl> modCollList;
         string srcPrt;
         bool stopAskingVar;
-        string customModDir;
+        Dictionary<string, string> wDict;
+
+        public bool DisableConfirm
+        {
+            get { return disableConfirm; }
+            set
+            {
+                disableConfirm = value;
+                write2XML();
+            }
+        }
+
         public string MODDIRECTORY
         {
             get
@@ -32,15 +42,6 @@ namespace WMD
             set
             {
                 customModDir = value;
-                write2XML();
-            }
-        }
-        public bool DisableConfirm
-        {
-            get { return disableConfirm; }
-            set
-            {
-                disableConfirm = value;
                 write2XML();
             }
         }
@@ -168,6 +169,58 @@ namespace WMD
             Writer.Close();
         }
 
+        public ModColl readXmlPackage(FileInfo fi)
+        {
+            ModColl nmc = null;
+            var reader = new XmlTextReader(fi.FullName);
+            if (fi.Exists)
+                try
+                {
+                    while (reader.Read())
+                    {
+                        bool quit = false;
+                        if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Wadpack"))
+                        {
+                            nmc = new ModColl(reader.GetAttribute("name"), reader.GetAttribute("srcPrt"));
+
+                            while (quit == false)
+                            {
+                                reader.Read();
+                                switch (reader.NodeType)
+                                {
+                                    case XmlNodeType.EndElement: //Display the end of the element.
+                                        if (reader.Name == "Wadpack")
+                                        {
+                                            quit = true;
+                                        }
+                                        break;
+
+                                    case XmlNodeType.Element: //Display the text in each element.
+                                        if (reader.Name == "Wad")
+                                        {
+                                            string attr = "0";
+                                            if (reader.HasAttributes)
+                                                attr = reader.GetAttribute("loadorder");
+                                            reader.Read();
+                                            nmc.Add(new Mod(true, attr, new FileInfo(reader.Value.ToString())));
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    reader.Close();
+                    fi.Delete();
+                }
+                catch (XmlException)
+                {
+                    reader.Close();
+                    fi.Delete();
+                }
+
+            return nmc;
+        }
+
         public void removeModColl(ModColl mc)
         {
             if (mc.config != null)
@@ -259,58 +312,6 @@ namespace WMD
             }
 
             return dict;
-        }
-
-        public ModColl readXmlPackage(FileInfo fi)
-        {
-            ModColl nmc = null;
-            var reader = new XmlTextReader(fi.FullName);
-            if (fi.Exists)
-                try
-                {
-                    while (reader.Read())
-                    {
-                        bool quit = false;
-                        if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Wadpack"))
-                        {
-                            nmc = new ModColl(reader.GetAttribute("name"), reader.GetAttribute("srcPrt"));
-
-                            while (quit == false)
-                            {
-                                reader.Read();
-                                switch (reader.NodeType)
-                                {
-                                    case XmlNodeType.EndElement: //Display the end of the element.
-                                        if (reader.Name == "Wadpack")
-                                        {
-                                            quit = true;
-                                        }
-                                        break;
-
-                                    case XmlNodeType.Element: //Display the text in each element.
-                                        if (reader.Name == "Wad")
-                                        {
-                                            string attr = "0";
-                                            if (reader.HasAttributes)
-                                                attr = reader.GetAttribute("loadorder");
-                                            reader.Read();
-                                            nmc.Add(new Mod(true, attr, new FileInfo(reader.Value.ToString())));
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                    reader.Close();
-                    fi.Delete();
-                }
-                catch (XmlException)
-                {
-                    reader.Close();
-                    fi.Delete();
-                }
-
-            return nmc;
         }
 
         List<ModColl> read2XML()
@@ -405,7 +406,6 @@ namespace WMD
             if (!string.IsNullOrEmpty(customModDir))
                 Writer.WriteAttributeString("customModDir", customModDir);
             Writer.WriteEndElement();
-
 
             Writer.WriteStartElement("SrcPrt");
             if (!string.IsNullOrEmpty(srcPrt))

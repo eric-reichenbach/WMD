@@ -490,7 +490,7 @@
             // 
             // modListBindingSource
             // 
-            this.modListBindingSource.DataSource = typeof(WMD.ModList);
+            this.modListBindingSource.DataSource = typeof(ModList);
             // 
             // FORM_MAINWIN
             // 
