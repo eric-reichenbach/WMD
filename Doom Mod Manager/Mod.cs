@@ -62,6 +62,7 @@ namespace WMD
             {
                 str = str.Replace("\\", "");
             }
+            str = str.Replace("\\", "/");
             return str;
         }
     }

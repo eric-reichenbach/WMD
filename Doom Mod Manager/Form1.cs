@@ -416,12 +416,6 @@ namespace WMD
             }
         }
 
-        void TIMER_REFRESH_Tick(object sender, EventArgs e)
-        {
-            reinitModColl();
-            DGRIDV_MODS.DataSource = new ModList();
-        }
-
         void TXTBX__MODCOLL_NAME_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

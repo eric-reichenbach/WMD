@@ -36,6 +36,8 @@
             this.DGRIDV_MODS = new System.Windows.Forms.DataGridView();
             this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.loadOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.GBX_SRCPRT = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -63,14 +65,12 @@
             this.CONTEXT_GITHUB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.FODIA_MODDIR = new System.Windows.Forms.FolderBrowserDialog();
-            this.TIMER_REFRESH = new System.Windows.Forms.Timer(this.components);
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.PAN_CONTENT.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGRIDV_MODS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.GBX_SRCPRT.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -80,7 +80,6 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.CONMSTRIP_WINDOW.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // PAN_CONTENT
@@ -178,6 +177,19 @@
             this.loadOrder.Name = "loadOrder";
             this.loadOrder.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.loadOrder.ToolTipText = "Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "displayText";
+            this.dataGridViewTextBoxColumn1.FillWeight = 181.3152F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Drag/drop WADs, PK3s, DEHs... to add them. Doubleclick on a row to delete the wad" +
+    ".";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // modListBindingSource
+            // 
+            this.modListBindingSource.DataSource = typeof(WMD.ModList);
             // 
             // tableLayoutPanel3
             // 
@@ -473,25 +485,6 @@
             // 
             this.FODIA_MODDIR.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // TIMER_REFRESH
-            // 
-            this.TIMER_REFRESH.Enabled = true;
-            this.TIMER_REFRESH.Interval = 1000;
-            this.TIMER_REFRESH.Tick += new System.EventHandler(this.TIMER_REFRESH_Tick);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "displayText";
-            this.dataGridViewTextBoxColumn1.FillWeight = 181.3152F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Drag/drop WADs, PK3s, DEHs... to add them. Doubleclick on a row to delete the wad" +
-    ".";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // modListBindingSource
-            // 
-            this.modListBindingSource.DataSource = typeof(ModList);
-            // 
             // FORM_MAINWIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,6 +502,7 @@
             this.toolStripContainer1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGRIDV_MODS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.GBX_SRCPRT.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -520,7 +514,6 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.CONMSTRIP_WINDOW.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.modListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -562,7 +555,6 @@
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_MODDIR;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_GITHUB;
         private System.Windows.Forms.FolderBrowserDialog FODIA_MODDIR;
-        private System.Windows.Forms.Timer TIMER_REFRESH;
     }
 }
 
