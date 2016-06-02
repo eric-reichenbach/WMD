@@ -455,5 +455,11 @@ namespace WMD
             ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/EricReichenbach/WMD");
             Process.Start(sInfo);
         }
+
+        private void TIMER_REFRESH_Tick(object sender, EventArgs e)
+        {
+            reinitModColl();
+            DGRIDV_MODS.DataSource = new ModList();
+        }
     }
 }

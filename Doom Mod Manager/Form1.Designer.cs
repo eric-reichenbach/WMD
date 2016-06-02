@@ -59,12 +59,13 @@
             this.CONTEXT_FOLDER = new System.Windows.Forms.ToolStripMenuItem();
             this.CONTEXT_DELETE_DATA = new System.Windows.Forms.ToolStripMenuItem();
             this.CONTEXT_RESET_ENVVAR = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.CONTEXT_MODDIR = new System.Windows.Forms.ToolStripMenuItem();
+            this.CONTEXT_GITHUB = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.FODIA_MODDIR = new System.Windows.Forms.FolderBrowserDialog();
+            this.TIMER_REFRESH = new System.Windows.Forms.Timer(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.FODIA_MODDIR = new System.Windows.Forms.FolderBrowserDialog();
-            this.CONTEXT_GITHUB = new System.Windows.Forms.ToolStripMenuItem();
             this.PAN_CONTENT.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -431,7 +432,7 @@
             this.CONMSTRIP_WINDOW.Name = "CONMSTRIP_WINDOW";
             this.CONMSTRIP_WINDOW.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.CONMSTRIP_WINDOW.ShowImageMargin = false;
-            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 136);
+            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 114);
             // 
             // CONTEXT_FOLDER
             // 
@@ -461,6 +462,23 @@
             this.CONTEXT_MODDIR.Text = "Select the Wad Directory";
             this.CONTEXT_MODDIR.Click += new System.EventHandler(this.CONTEXT_MODDIR_Click);
             // 
+            // CONTEXT_GITHUB
+            // 
+            this.CONTEXT_GITHUB.Name = "CONTEXT_GITHUB";
+            this.CONTEXT_GITHUB.Size = new System.Drawing.Size(221, 22);
+            this.CONTEXT_GITHUB.Text = "Get the latest version on Github";
+            this.CONTEXT_GITHUB.Click += new System.EventHandler(this.CONTEXT_GITHUB_Click);
+            // 
+            // FODIA_MODDIR
+            // 
+            this.FODIA_MODDIR.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // TIMER_REFRESH
+            // 
+            this.TIMER_REFRESH.Enabled = true;
+            this.TIMER_REFRESH.Interval = 1000;
+            this.TIMER_REFRESH.Tick += new System.EventHandler(this.TIMER_REFRESH_Tick);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "displayText";
@@ -473,17 +491,6 @@
             // modListBindingSource
             // 
             this.modListBindingSource.DataSource = typeof(WMD.ModList);
-            // 
-            // FODIA_MODDIR
-            // 
-            this.FODIA_MODDIR.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
-            // CONTEXT_GITHUB
-            // 
-            this.CONTEXT_GITHUB.Name = "CONTEXT_GITHUB";
-            this.CONTEXT_GITHUB.Size = new System.Drawing.Size(221, 22);
-            this.CONTEXT_GITHUB.Text = "Get the latest version on Github";
-            this.CONTEXT_GITHUB.Click += new System.EventHandler(this.CONTEXT_GITHUB_Click);
             // 
             // FORM_MAINWIN
             // 
@@ -555,6 +562,7 @@
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_MODDIR;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_GITHUB;
         private System.Windows.Forms.FolderBrowserDialog FODIA_MODDIR;
+        private System.Windows.Forms.Timer TIMER_REFRESH;
     }
 }
 
