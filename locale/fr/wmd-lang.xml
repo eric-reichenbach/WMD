@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--DOOM WAD MANAGER LANG XML-->
+<wmd-lang lang="fr">
+<string>
+<key>WMD - Wad Manager for Doom</key>
+<value>WMD - Gestionnaire de Wads pour Doom</value>
+</string>
+<string>
+<key>Create a new wad collection</key>
+<value>Créer une nouvelle collection de Wads</value>
+</string>
+<string>
+<key>Launch the game</key>
+<value>Lancer le jeu</value>
+</string>
+<string>
+<key>Delete selected</key>
+<value>Supprimer l'élément sélectionné</value>
+</string>
+<string>
+<key>Select your sourceport</key>
+<value>Sélectionner le sourceport</value>
+</string>
+<string>
+<key>Cancel</key>
+<value>Annuler</value>
+</string>
+<string>
+<key>Validate</key>
+<value>Valider</value>
+</string>
+<string>
+<key>Enter a name for the new wadpack</key>
+<value>Entrez le nom du nouveau Wadpack</value>
+</string>
+<string>
+<key>Wadpacks</key>
+<value>Wadpacks</value>
+</string>
+<string>
+<key>Select your Sourceport</key>
+<value>Sélectionner le sourceport</value>
+</string>
+<string>
+<key>Link the pack to the selected Sourceport</key>
+<value>Lier le pack au sourceport sélectionné</value>
+</string>
+<string>
+<key>It will also create a specific config file for the pack (it's useful for wads with specific key bindings)</key>
+<value>Cela créera aussi un fichier de configuration spécifique (utile pour les wads nécessitant des assignations de touches particulières)</value>
+</string>
+<string>
+<key>Load order</key>
+<value>Ordre de chargement</value>
+</string>
+<string>
+<key>Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)</key>
+<value>Ordre croissant (ex. 1 est chargé avant 2)</value>
+</string>
+<string>
+<key>Drag/drop WADs, PK3s, DEHs... to add them. Doubleclick on a row to delete the wad.</key>
+<value>Glissez/déposez des WAD, PK3, DEH... pour les ajouter. Doublecliquez sur une Wad pour la supprimer.</value>
+</string>
+<string>
+<key>Open Folder</key>
+<value>Ouvrir le dossier</value>
+</string>
+<string>
+<key>Delete XML data</key>
+<value>Supprimer les données XML</value>
+</string>
+<string>
+<key>Remove DOOMWADDIR variable</key>
+<value>Supprimer la variable DOOMWADDIR</value>
+</string>
+<string>
+<key>Select the Wad Directory</key>
+<value>Sélectionner le dossier des wads</value>
+</string>
+<string>
+<key>Get the latest version on Github</key>
+<value>Télécharger la dernière version sur Github</value>
+</string>
+<string>
+<key>Launch Check</key>
+<value>Vérification de lancement</value>
+</string>
+<string>
+<key>The environment variable "DOOMWADDIR" has not been found.
+
+This variable allows Sourceports to easily find your IWADs(the files needed to play the game).
+
+Would you like to create the variable for the windows session currently in use ?</key>
+<value>La variable d'environement "DOOMWADDIR" n'a pas été trouvée.
+
+Cette variable permet aux sourceports de trouver facilement les IWADS (les fichiers nécessaires au lancement du jeu).
+
+Voulez-vous créer cette variable pour la session de Windows en cours ?</value>
+</string>
+<string>
+<key>Ask later</key>
+<value>Demander plus tard</value>
+</string>
+<string>
+<key>No</key>
+<value>Non</value>
+</string>
+<string>
+<key>Yes (recommended)</key>
+<value>Oui (recommandé)</value>
+</string>
+<string>
+<key>The environment variable DOOMWADDIR is used by sourceports to find your IWADs.
+
+Next time you will launch WMD, it will ask if you want to recreate it.
+
+Are you sure you want to delete the environment variable DOOMWADDIR?</key>
+<value>La variable d'environnement DOOMWADDIR est utilisée par les sourceports pour trouver les IWADs.
+
+La prochaine fois que vous lancerez WMD, le logiciel vous proposera de la recréer.
+
+Etes-vous sûr de vouloir supprimer la variable d'environnement DOOMWADDIR ?</value>
+</string>
+<string>
+<key>Confirm Delete</key>
+<value>Confirmer la suppression</value>
+</string>
+<string>
+<key>Delete the Wad collection named "$"?</key>
+<value>Supprimer la Collection de Wads nommée "$" ?</value>
+</string>
+<string>
+<key>Are you sure to delete all data contained in the xml file? You should only do that if there is bugs or issues with the manager.</key>
+<value>Etes-vous sûr de vouloir supprimer toutes les données contenues dans le fichiers XML ? Cette action ne devrait être réaliser qu'en cas de bug ou de problème avec le gestionnaire.</value>
+</string>
+<string>
+<key>Unable to delete the file, it might be read only.</key>
+<value>Suppression du fichier impossible, il est peut-être en lecture seule.</value>
+</string>
+<string>
+<key>Error</key>
+<value>Erreur</value>
+</string>
+<string>
+<key>Unable to delete the variable for unknown reasons.</key>
+<value>Suppression du la variable impossible pour une raison inconnue.</value>
+</string>
+<string>
+<key>Are you sure to delete the selected wad?</key>
+<value>Etes-vous sûr de vouloir supprimer la wad sélectionnée ?</value>
+</string>
+<string>
+<key>Optional launch parameters...</key>
+<value>Paramètres de lancement optionnels...</value>
+</string>
+</wmd-lang>

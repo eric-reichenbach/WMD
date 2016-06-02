@@ -12,14 +12,29 @@ namespace WMD
         public const string SAVEDIRECTORY = @".\WMDSAVE";
         public const string FILENAME = @".\WMD.xml";
         public const string LANGFILE = @".\wmd-lang.xml";
-        public const string MODDIRECTORY = @".\WMD";
+        public const string _MODDIRECTORY = @".\WMD";
+
         List<ModColl> modCollList;
         static PM param;
         Dictionary<string, string> wDict;
         bool disableConfirm;
         string srcPrt;
         bool stopAskingVar;
-
+        string customModDir;
+        public string MODDIRECTORY
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(customModDir))
+                    return customModDir;
+                return _MODDIRECTORY;
+            }
+            set
+            {
+                customModDir = value;
+                write2XML();
+            }
+        }
         public bool DisableConfirm
         {
             get { return disableConfirm; }
@@ -194,6 +209,7 @@ namespace WMD
             var dict = new Dictionary<string, string>();
 
             var reader = new XmlTextReader(LANGFILE);
+
             if (!fi.Exists)
                 return null;
             try
@@ -244,6 +260,7 @@ namespace WMD
 
             return dict;
         }
+
         public ModColl readXmlPackage(FileInfo fi)
         {
             ModColl nmc = null;
@@ -310,7 +327,10 @@ namespace WMD
                     while (reader.Read())
                     {
                         if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Var"))
+                        {
                             stopAskingVar = (reader.GetAttribute("stopasking").Equals("1"));
+                            customModDir = reader.GetAttribute("customModDir");
+                        }
                         if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Confirm"))
                             disableConfirm = (reader.GetAttribute("disabled").Equals("1"));
                         if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "SrcPrt"))
@@ -377,13 +397,15 @@ namespace WMD
             // Root Element
 
             Writer.WriteStartElement("WMD");
-
             Writer.WriteStartElement("Var");
             if (stopAskingVar)
                 Writer.WriteAttributeString("stopasking", "1");
             else
                 Writer.WriteAttributeString("stopasking", "0");
+            if (!string.IsNullOrEmpty(customModDir))
+                Writer.WriteAttributeString("customModDir", customModDir);
             Writer.WriteEndElement();
+
 
             Writer.WriteStartElement("SrcPrt");
             if (!string.IsNullOrEmpty(srcPrt))
@@ -412,7 +434,6 @@ namespace WMD
                     Writer.WriteEndElement(); // Mod End Tag
                 }
                 Writer.WriteEndElement(); // Collection End Tag
-
             }
             Writer.WriteEndElement();
             Writer.WriteEndDocument();

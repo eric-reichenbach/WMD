@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace WMD
 {
-    class Mod : System.IComparable
+    class Mod : IComparable
     {
         public FileInfo fileI { get; set; }
 
@@ -22,16 +20,16 @@ namespace WMD
             loadOrder = 0;
         }
 
-        public Mod(bool selected, int loadOrder, string fi)
+        public Mod(bool selected, int loadOrder, string modDir, string fi)
         {
-            fileI = new FileInfo(PM.MODDIRECTORY + "\\" + fi);
+            fileI = new FileInfo(modDir + "\\" + fi);
             this.selected = selected;
             this.loadOrder = loadOrder;
         }
 
-        public Mod(bool selected, string loadOrder, string fi)
+        public Mod(bool selected, string loadOrder, string modDir, string fi)
         {
-            fileI = new FileInfo(PM.MODDIRECTORY + "\\" + fi);
+            fileI = new FileInfo(modDir + "\\" + fi);
             this.selected = selected;
             int i = 0;
             int.TryParse(loadOrder, out i);
@@ -49,12 +47,11 @@ namespace WMD
 
         public override string ToString()
         {
-            var str = fileI.FullName.Replace(new DirectoryInfo(PM.MODDIRECTORY).FullName, "");
+            var str = fileI.FullName.Replace(new DirectoryInfo(PM.getInstance().MODDIRECTORY).FullName, "");
             int count = str.Split('\\').Length - 1;
             if (count == 1)
             {
                 str = str.Replace("\\", "");
-
             }
             return str;
         }
@@ -66,10 +63,7 @@ namespace WMD
                 return -1;
             if (!displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal) && m.displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal))
                 return 1;
-            /*
-            if (displayText.ToLower().Trim().StartsWith("\\", StringComparison.Ordinal) && (Regex.IsMatch(m.displayText.ToLower().Trim(), @"^\d+")))
-                return -1;
-                */
+
             return (string.Compare(displayText.ToLower(), m.displayText.ToLower(), StringComparison.Ordinal));
         }
     }

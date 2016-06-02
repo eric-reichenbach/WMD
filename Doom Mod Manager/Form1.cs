@@ -35,7 +35,9 @@ namespace WMD
             CONMSTRIP_WINDOW.Items["CONTEXT_FOLDER"].Text = pm.txt("Open Folder");
             CONMSTRIP_WINDOW.Items["CONTEXT_DELETE_DATA"].Text = pm.txt("Delete XML data");
             CONMSTRIP_WINDOW.Items["CONTEXT_RESET_ENVVAR"].Text = pm.txt("Remove DOOMWADDIR variable");
-
+            CONMSTRIP_WINDOW.Items["CONTEXT_MODDIR"].Text = pm.txt("Select the Wad Directory");
+            CONMSTRIP_WINDOW.Items["CONTEXT_GITHUB"].Text = pm.txt("Get the latest version on Github");
+            TBOX_PARAM.Text = pm.txt("Optional launch parameters...");
             try
             {
                 DGRIDV_MODS.DataSource = new ModList();
@@ -121,7 +123,7 @@ namespace WMD
             foreach (DataGridViewRow r in DGRIDV_MODS.Rows)
             {
                 if ((bool)r.Cells[0].Value)
-                    mdlst.Add(new Mod((bool)r.Cells[0].Value, (int)r.Cells[1].Value, r.Cells[2].Value.ToString()));
+                    mdlst.Add(new Mod((bool)r.Cells[0].Value, (int)r.Cells[1].Value, pm.MODDIRECTORY, r.Cells[2].Value.ToString()));
                 mdlst = mdlst.OrderBy(o => o.loadOrder).ToList();
             }
             foreach (Mod m in mdlst)
@@ -219,7 +221,7 @@ namespace WMD
         void CONTEXT_FOLDER_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe",
-                "/select," + new DirectoryInfo(PM.MODDIRECTORY).FullName);
+                "/select," + new DirectoryInfo(pm.MODDIRECTORY).FullName);
         }
 
         void CONTEXT_RESET_ENVVAR_Click(object sender, EventArgs e)
@@ -263,7 +265,7 @@ namespace WMD
                 Mod toDel;
                 using (DataGridViewRow r = DGRIDV_MODS.SelectedRows[0])
                 {
-                    toDel = new Mod(false, 0, r.Cells[2].Value.ToString());
+                    toDel = new Mod(false, 0, pm.MODDIRECTORY, r.Cells[2].Value.ToString());
                 }
 
                 try
@@ -302,14 +304,13 @@ namespace WMD
                         }
                         catch
                         {
-
                         }
                     }
                     else
                     {
                         int stri = fi.DirectoryName.Length;
                         string namefile = fi.FullName.Substring(stri + 1, fi.FullName.Length - stri - 1);
-                        File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
+                        File.Copy(file, pm.MODDIRECTORY + "/" + namefile, true);
                     }
                 }
                 else if (Directory.Exists(file))
@@ -318,11 +319,11 @@ namespace WMD
 
                     //int stri = di.DirectoryName.Length;
                     //string namefile = fi.FullName.Substring(stri + 1, fi.FullName.Length - stri - 1);
-                    Directory.CreateDirectory(PM.MODDIRECTORY + "/" + di.Name);
+                    Directory.CreateDirectory(pm.MODDIRECTORY + "/" + di.Name);
                     foreach (string dirPath in Directory.GetDirectories(di.FullName, "*", SearchOption.AllDirectories))
-                        Directory.CreateDirectory(dirPath.Replace(di.FullName, PM.MODDIRECTORY + "/" + di.Name));
+                        Directory.CreateDirectory(dirPath.Replace(di.FullName, pm.MODDIRECTORY + "/" + di.Name));
                     foreach (string newPath in Directory.GetFiles(di.FullName, "*.*", SearchOption.AllDirectories))
-                        File.Copy(newPath, newPath.Replace(di.FullName, PM.MODDIRECTORY + "/" + di.Name), true);
+                        File.Copy(newPath, newPath.Replace(di.FullName, pm.MODDIRECTORY + "/" + di.Name), true);
                     //File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
                 }
             }
@@ -429,7 +430,7 @@ namespace WMD
             foreach (DataGridViewRow r in DGRIDV_MODS.Rows)
             {
                 if ((bool)r.Cells[0].Value)
-                    mc.Add(new Mod((bool)r.Cells[0].Value, (int)r.Cells[1].Value, r.Cells[2].Value.ToString()));
+                    mc.Add(new Mod((bool)r.Cells[0].Value, (int)r.Cells[1].Value, pm.MODDIRECTORY, r.Cells[2].Value.ToString()));
             }
             if (mc.Count != 0)
             {
@@ -439,5 +440,18 @@ namespace WMD
             }
         }
 
+        private void CONTEXT_MODDIR_Click(object sender, EventArgs e)
+        {
+            FODIA_MODDIR.ShowDialog();
+
+            if (!string.IsNullOrEmpty(FODIA_MODDIR.SelectedPath))
+                pm.MODDIRECTORY = FODIA_MODDIR.SelectedPath;
+        }
+
+        private void CONTEXT_GITHUB_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/EricReichenbach/WMD");
+            Process.Start(sInfo);
+        }
     }
 }

@@ -67,6 +67,12 @@ If you want to share your config file for a rad wad you just found on doom-world
 
 Just create the xml file with the references to the wads, create your config file, and tell the users to download the wads by themselves, don't put the wads in the archive (it's stealing if you do. You wouldn't steal a car, would you?).
 
+##Localisation
+
+You can localise this app through an XML file. One is already available in french in the folder locale/fr/.
+
+To use the localisation file, you just have to put in the same folder as the executable.
+
 ## Contributions
 
 If you want to improve that god awful readme, don't hesitate.

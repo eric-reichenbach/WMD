@@ -34,6 +34,8 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.DGRIDV_MODS = new System.Windows.Forms.DataGridView();
+            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.loadOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.GBX_SRCPRT = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,10 +60,11 @@
             this.CONTEXT_DELETE_DATA = new System.Windows.Forms.ToolStripMenuItem();
             this.CONTEXT_RESET_ENVVAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.loadOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CONTEXT_MODDIR = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.FODIA_MODDIR = new System.Windows.Forms.FolderBrowserDialog();
+            this.CONTEXT_GITHUB = new System.Windows.Forms.ToolStripMenuItem();
             this.PAN_CONTENT.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -149,6 +152,31 @@
             this.DGRIDV_MODS.DragDrop += new System.Windows.Forms.DragEventHandler(this.DGRIDV_MODS_DragDrop);
             this.DGRIDV_MODS.DragEnter += new System.Windows.Forms.DragEventHandler(this.DGRIDV_MODS_DragEnter);
             this.DGRIDV_MODS.DoubleClick += new System.EventHandler(this.DGRIDV_MODS_DoubleClick);
+            // 
+            // selected
+            // 
+            this.selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.selected.DataPropertyName = "selected";
+            this.selected.FillWeight = 29.39524F;
+            this.selected.HeaderText = "";
+            this.selected.MinimumWidth = 20;
+            this.selected.Name = "selected";
+            this.selected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.selected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.selected.ToolTipText = "Select the wad";
+            this.selected.Width = 32;
+            // 
+            // loadOrder
+            // 
+            this.loadOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.loadOrder.DataPropertyName = "loadOrder";
+            this.loadOrder.FillWeight = 78.8327F;
+            this.loadOrder.HeaderText = "Load order";
+            this.loadOrder.MaxInputLength = 3;
+            this.loadOrder.MinimumWidth = 100;
+            this.loadOrder.Name = "loadOrder";
+            this.loadOrder.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.loadOrder.ToolTipText = "Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)";
             // 
             // tableLayoutPanel3
             // 
@@ -397,11 +425,13 @@
             this.CONMSTRIP_WINDOW.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CONTEXT_FOLDER,
             this.CONTEXT_DELETE_DATA,
-            this.CONTEXT_RESET_ENVVAR});
+            this.CONTEXT_RESET_ENVVAR,
+            this.CONTEXT_MODDIR,
+            this.CONTEXT_GITHUB});
             this.CONMSTRIP_WINDOW.Name = "CONMSTRIP_WINDOW";
             this.CONMSTRIP_WINDOW.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.CONMSTRIP_WINDOW.ShowImageMargin = false;
-            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 70);
+            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 136);
             // 
             // CONTEXT_FOLDER
             // 
@@ -424,30 +454,12 @@
             this.CONTEXT_RESET_ENVVAR.Text = "Remove DOOMWADDIR variable";
             this.CONTEXT_RESET_ENVVAR.Click += new System.EventHandler(this.CONTEXT_RESET_ENVVAR_Click);
             // 
-            // selected
+            // CONTEXT_MODDIR
             // 
-            this.selected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.selected.DataPropertyName = "selected";
-            this.selected.FillWeight = 29.39524F;
-            this.selected.HeaderText = "";
-            this.selected.MinimumWidth = 20;
-            this.selected.Name = "selected";
-            this.selected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.selected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.selected.ToolTipText = "Select the wad";
-            this.selected.Width = 32;
-            // 
-            // loadOrder
-            // 
-            this.loadOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.loadOrder.DataPropertyName = "loadOrder";
-            this.loadOrder.FillWeight = 78.8327F;
-            this.loadOrder.HeaderText = "Load order";
-            this.loadOrder.MaxInputLength = 3;
-            this.loadOrder.MinimumWidth = 100;
-            this.loadOrder.Name = "loadOrder";
-            this.loadOrder.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.loadOrder.ToolTipText = "Loaded in a ascending order (e.g. wads 1 are loaded before wads 2)";
+            this.CONTEXT_MODDIR.Name = "CONTEXT_MODDIR";
+            this.CONTEXT_MODDIR.Size = new System.Drawing.Size(221, 22);
+            this.CONTEXT_MODDIR.Text = "Select the Wad Directory";
+            this.CONTEXT_MODDIR.Click += new System.EventHandler(this.CONTEXT_MODDIR_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -461,6 +473,17 @@
             // modListBindingSource
             // 
             this.modListBindingSource.DataSource = typeof(WMD.ModList);
+            // 
+            // FODIA_MODDIR
+            // 
+            this.FODIA_MODDIR.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // CONTEXT_GITHUB
+            // 
+            this.CONTEXT_GITHUB.Name = "CONTEXT_GITHUB";
+            this.CONTEXT_GITHUB.Size = new System.Drawing.Size(221, 22);
+            this.CONTEXT_GITHUB.Text = "Get the latest version on Github";
+            this.CONTEXT_GITHUB.Click += new System.EventHandler(this.CONTEXT_GITHUB_Click);
             // 
             // FORM_MAINWIN
             // 
@@ -529,6 +552,9 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
         private System.Windows.Forms.DataGridViewTextBoxColumn loadOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.ToolStripMenuItem CONTEXT_MODDIR;
+        private System.Windows.Forms.ToolStripMenuItem CONTEXT_GITHUB;
+        private System.Windows.Forms.FolderBrowserDialog FODIA_MODDIR;
     }
 }
 
