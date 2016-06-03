@@ -178,11 +178,11 @@ namespace WMD
                 {
                     while (reader.Read())
                     {
-                        bool quit = false;
                         if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Wadpack"))
                         {
                             nmc = new ModColl(reader.GetAttribute("name"), reader.GetAttribute("srcPrt"));
-
+                            System.Console.WriteLine(nmc);
+                            bool quit = false;
                             while (quit == false)
                             {
                                 reader.Read();
@@ -202,7 +202,7 @@ namespace WMD
                                             if (reader.HasAttributes)
                                                 attr = reader.GetAttribute("loadorder");
                                             reader.Read();
-                                            nmc.Add(new Mod(true, attr, new FileInfo(reader.Value.ToString())));
+                                            nmc.Add(new Mod(true, attr, new FileInfo(MODDIRECTORY + reader.Value.ToString())));
                                         }
                                         break;
                                 }
@@ -212,8 +212,9 @@ namespace WMD
                     reader.Close();
                     fi.Delete();
                 }
-                catch (XmlException)
+                catch (XmlException e)
                 {
+                    System.Console.WriteLine(e);
                     reader.Close();
                     fi.Delete();
                 }
@@ -357,11 +358,24 @@ namespace WMD
                                     case XmlNodeType.Element: //Display the text in each element.
                                         if (reader.Name == "Wad")
                                         {
-                                            string attr = "0";
-                                            if (reader.HasAttributes)
-                                                attr = reader.GetAttribute("loadorder");
-                                            reader.Read();
-                                            nmc.Add(new Mod(true, attr, new FileInfo(reader.Value.ToString())));
+                                            try
+                                            {
+                                                string attr = "0";
+                                                if (reader.HasAttributes)
+                                                    attr = reader.GetAttribute("loadorder");
+                                                reader.Read();
+                                                var fiWad = new FileInfo(reader.Value);
+                                                if (!fiWad.Exists)
+                                                    fiWad = new FileInfo(reader.Value.Replace(".\\WMD", MODDIRECTORY));
+                                                if (!fiWad.Exists)
+                                                    if (!reader.Value.StartsWith(".", System.StringComparison.Ordinal))
+                                                        fiWad = new FileInfo(MODDIRECTORY + "\\" + reader.Value);
+                                                if (!fiWad.Exists)
+                                                    break;
+
+                                                nmc.Add(new Mod(true, attr, new FileInfo(reader.Value)));
+                                            }
+                                            catch { }
                                         }
                                         break;
                                 }
@@ -428,7 +442,7 @@ namespace WMD
                     Writer.WriteAttributeString("loadorder", m.loadOrder.ToString());
                     var filePath = m.fileI.FullName;
                     var modPath = new DirectoryInfo(MODDIRECTORY);
-                    filePath = filePath.Replace(modPath.FullName, MODDIRECTORY);
+                    filePath = filePath.Replace(modPath.FullName, "");
                     Writer.WriteString(filePath);
 
                     Writer.WriteEndElement(); // Mod End Tag

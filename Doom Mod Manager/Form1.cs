@@ -310,17 +310,29 @@ namespace WMD
                     var fi = new FileInfo(file);
                     if (fi.Extension.ToLower().Equals(".dpz"))
                     {
-                        try
+
+                        var dpzEx = new DirectoryInfo(@".\DPZ-EXTRACT\");
+                        if (dpzEx.Exists) dpzEx.Delete(true);
+                        dpzEx.Create();
+                        ZipFile.ExtractToDirectory(fi.FullName, dpzEx.FullName);
+
+                        string[] foldArr = { dpzEx.FullName + @"\WMD\", dpzEx.FullName + @"\WMDSAVE\", dpzEx.FullName + @"\WMDCONF\" };
+                        string[] tgtArr = { pm.MODDIRECTORY, PM.SAVEDIRECTORY, PM.CONFIGDIRECTORY };
+                        for (int i = 0; i < foldArr.Length; i++)
                         {
-                            ZipFile.ExtractToDirectory(fi.FullName, @".");
-                            ModColl mc = pm.readXmlPackage(new FileInfo(@".\\WMF.xml"));
-                            pm.addModColl(mc);
-                            reinitModColl();
-                            LSTB_MODCOLL.Focus();
+                            var di = new DirectoryInfo(foldArr[i]);
+
+                            foreach (string dirPath in Directory.GetDirectories(di.FullName, "*", SearchOption.AllDirectories))
+                                Directory.CreateDirectory(dirPath.Replace(di.FullName, tgtArr[i] + "/"));
+                            foreach (string newPath in Directory.GetFiles(di.FullName, "*.*", SearchOption.AllDirectories))
+                                File.Copy(newPath, newPath.Replace(di.FullName, tgtArr[i] + "/"), true);
                         }
-                        catch
-                        {
-                        }
+                        ModColl mc = pm.readXmlPackage(new FileInfo(dpzEx.FullName + @"WMF.xml"));
+                        pm.addModColl(mc);
+                        reinitModColl();
+                        LSTB_MODCOLL.Focus();
+                        dpzEx.Delete(true);
+
                     }
                     else
                     {

@@ -53,8 +53,8 @@ To create a pack you just have to follow those instructions:
 in the WMF.xml file should look like that:
 
     <Wadpack name="[Pack Name]">
-    <Wad loadorder="1">.\WMD\[One for each wad]</Wad>
-    <Wad loadorder="0">.\WMD\[One for each wad]</Wad>
+    <Wad loadorder="1">\[One for each wad]</Wad>
+    <Wad loadorder="0">\[One for each wad]</Wad>
     </Wadpack>
 
 Once it's okay, zip it (the WMF.xml must be at the root of the archive) and change the .zip extension by .dwp
