@@ -181,7 +181,6 @@ namespace WMD
                         if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "Wadpack"))
                         {
                             nmc = new ModColl(reader.GetAttribute("name"), reader.GetAttribute("srcPrt"));
-                            System.Console.WriteLine(nmc);
                             bool quit = false;
                             while (quit == false)
                             {
@@ -214,7 +213,6 @@ namespace WMD
                 }
                 catch (XmlException e)
                 {
-                    System.Console.WriteLine(e);
                     reader.Close();
                     fi.Delete();
                 }
