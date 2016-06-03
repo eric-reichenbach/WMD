@@ -77,4 +77,4 @@ To use the localisation file, you just have to put it in the same folder as the 
 
 If you want to improve that god awful readme, don't hesitate.
 
-If you have request features go on, but don't expect anything, but if your idea is great I might listen, I don't to bloat the software.
+If you have request features go on, but don't expect anything, but if your idea is great I might listen, I don't want to bloat the software.
