@@ -2,11 +2,11 @@
 
 # WMD (Wad Manager for Doom)
 
-WMD is a small project I started to easily launch Doom wads.
-
-The project went further than I expected so I decided to share it.
+WMD is a mod manager for zDoom-like sourceports of doom.
 
 [Get the latest release](https://github.com/EricReichenbach/WMD/releases/latest "Latest Releases")
+
+[WMD zDoom Forum thread](http://forum.zdoom.org/viewtopic.php?f=19&t=52340 "zDoom forum thread")
 
 (by the way, if your computer explode while using this app, it's not my fault, and you are not allowed use it to summon an army of daemons, it's in the law)
 
@@ -53,8 +53,8 @@ To create a pack you just have to follow those instructions:
 in the WMF.xml file should look like that:
 
     <Wadpack name="[Pack Name]">
-    <Wad loadorder="1">\[One for each wad]</Wad>
-    <Wad loadorder="0">\[One for each wad]</Wad>
+      <Wad loadorder="1">\[One for each wad]</Wad>
+      <Wad loadorder="0">\[One for each wad]</Wad>
     </Wadpack>
 
 Once it's okay, zip it (the WMF.xml must be at the root of the archive) and change the .zip extension by .dwp
