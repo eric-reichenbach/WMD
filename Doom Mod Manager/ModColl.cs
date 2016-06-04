@@ -7,7 +7,30 @@ namespace WMD
     {
         public FileInfo config
         {
-            get { return new FileInfo(PM.CONFIGDIRECTORY + "//" + name + ".ini"); }
+            get
+            {
+                var fi = new FileInfo(PM.CONFIGDIRECTORY + "//" + name + ".ini");
+
+                if (!fi.Exists)
+                {
+                    var selectedSrcPrt = new FileInfo(PM.getInstance().SrcPrt);
+                    if (srcPrt != null)
+                        if (srcPrt.Exists)
+                            selectedSrcPrt = srcPrt;
+                    var dir = selectedSrcPrt.Directory.GetFiles("*.ini");
+                    foreach (var file in dir)
+                    {
+                        if (file.Name.Contains(selectedSrcPrt.Name.Replace(".exe", "")))
+                        {
+                            file.CopyTo(fi.FullName);
+                            return fi;
+                        }
+                    }
+
+                }
+
+                return fi;
+            }
         }
 
         public string name { get; set; }
