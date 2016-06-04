@@ -6,6 +6,8 @@ WMD is a mod manager for zDoom-like sourceports of doom.
 
 [Get the latest release](https://github.com/EricReichenbach/WMD/releases/latest "Latest Releases")
 
+[WMD zDoom Forum thread](http://forum.zdoom.org/viewtopic.php?f=19&t=52340 "zDoom forum thread")
+
 (by the way, if your computer explode while using this app, it's not my fault, and you are not allowed use it to summon an army of daemons, it's in the law)
 
 ## Main features
