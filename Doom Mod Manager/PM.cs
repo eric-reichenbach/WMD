@@ -364,14 +364,20 @@ namespace WMD
                                                 reader.Read();
                                                 var fiWad = new FileInfo(reader.Value);
                                                 if (!fiWad.Exists)
+                                                {
+                                                    System.Console.WriteLine("1");
                                                     fiWad = new FileInfo(reader.Value.Replace(".\\WMD", MODDIRECTORY));
+                                                }
                                                 if (!fiWad.Exists)
                                                     if (!reader.Value.StartsWith(".", System.StringComparison.Ordinal))
+                                                    {
+                                                        System.Console.WriteLine("2");
                                                         fiWad = new FileInfo(MODDIRECTORY + "\\" + reader.Value);
+                                                    }
                                                 if (!fiWad.Exists)
                                                     break;
-
-                                                nmc.Add(new Mod(true, attr, new FileInfo(reader.Value)));
+                                                System.Console.WriteLine(fiWad.FullName);
+                                                nmc.Add(new Mod(true, attr, fiWad));
                                             }
                                             catch { }
                                         }
@@ -441,6 +447,7 @@ namespace WMD
                     var filePath = m.fileI.FullName;
                     var modPath = new DirectoryInfo(MODDIRECTORY);
                     filePath = filePath.Replace(modPath.FullName, "");
+                    System.Console.WriteLine(filePath);
                     Writer.WriteString(filePath);
 
                     Writer.WriteEndElement(); // Mod End Tag
