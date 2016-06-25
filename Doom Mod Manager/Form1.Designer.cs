@@ -65,6 +65,7 @@
             this.CONTEXT_GITHUB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.FODIA_MODDIR = new System.Windows.Forms.FolderBrowserDialog();
+            this.displayOnlySelectedModsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PAN_CONTENT.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -440,11 +441,12 @@
             this.CONTEXT_DELETE_DATA,
             this.CONTEXT_RESET_ENVVAR,
             this.CONTEXT_MODDIR,
-            this.CONTEXT_GITHUB});
+            this.CONTEXT_GITHUB,
+            this.displayOnlySelectedModsToolStripMenuItem});
             this.CONMSTRIP_WINDOW.Name = "CONMSTRIP_WINDOW";
             this.CONMSTRIP_WINDOW.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.CONMSTRIP_WINDOW.ShowImageMargin = false;
-            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 114);
+            this.CONMSTRIP_WINDOW.Size = new System.Drawing.Size(222, 158);
             // 
             // CONTEXT_FOLDER
             // 
@@ -484,6 +486,13 @@
             // FODIA_MODDIR
             // 
             this.FODIA_MODDIR.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // displayOnlySelectedModsToolStripMenuItem
+            // 
+            this.displayOnlySelectedModsToolStripMenuItem.Name = "displayOnlySelectedModsToolStripMenuItem";
+            this.displayOnlySelectedModsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.displayOnlySelectedModsToolStripMenuItem.Text = "Display only selected mods";
+            this.displayOnlySelectedModsToolStripMenuItem.Click += new System.EventHandler(this.displayOnlySelectedModsToolStripMenuItem_Click);
             // 
             // FORM_MAINWIN
             // 
@@ -555,6 +564,7 @@
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_MODDIR;
         private System.Windows.Forms.ToolStripMenuItem CONTEXT_GITHUB;
         private System.Windows.Forms.FolderBrowserDialog FODIA_MODDIR;
+        private System.Windows.Forms.ToolStripMenuItem displayOnlySelectedModsToolStripMenuItem;
     }
 }
 

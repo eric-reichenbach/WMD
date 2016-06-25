@@ -13,7 +13,7 @@ namespace WMD
     public partial class FORM_MAINWIN : Form
     {
         readonly PM pm = PM.getInstance();
-
+        bool isRowFiltered = false;
         public FORM_MAINWIN()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace WMD
             TBOX_PARAM.Text = pm.txt("Optional launch parameters...");
             try
             {
-                DGRIDV_MODS.DataSource = new ModList();
+                reloadModList();
 
                 if (!string.IsNullOrEmpty(pm.SrcPrt))
                 {
@@ -63,7 +63,7 @@ namespace WMD
             {
                 var procStartInfo =
                     new ProcessStartInfo(path, command);
-                
+
                 procStartInfo.RedirectStandardOutput = true;
                 procStartInfo.UseShellExecute = false;
                 procStartInfo.CreateNoWindow = true;
@@ -227,7 +227,7 @@ namespace WMD
             if (!string.IsNullOrEmpty(FODIA_MODDIR.SelectedPath))
                 pm.MODDIRECTORY = FODIA_MODDIR.SelectedPath;
             reinitModColl();
-            DGRIDV_MODS.DataSource = new ModList();
+            reloadModList();
         }
 
         void CONTEXT_RESET_ENVVAR_Click(object sender, EventArgs e)
@@ -278,7 +278,7 @@ namespace WMD
                 {
                     // Try to delete the file.
                     File.Delete(toDel.fileI.FullName);
-                    DGRIDV_MODS.DataSource = new ModList();
+                    reloadModList();
                 }
                 catch
                 {
@@ -345,7 +345,7 @@ namespace WMD
                     //File.Copy(file, PM.MODDIRECTORY + "/" + namefile, true);
                 }
             }
-            DGRIDV_MODS.DataSource = new ModList();
+            reloadModList();
         }
 
         void DGRIDV_MODS_DragEnter(object sender, DragEventArgs e)
@@ -456,6 +456,37 @@ namespace WMD
                 reinitModColl();
                 LSTB_MODCOLL.Focus();
             }
+        }
+
+        void reloadModList()
+        {
+            DGRIDV_MODS.DataSource = new ModList();
+            isRowFiltered = false;
+        }
+        private void displayOnlySelectedModsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isRowFiltered)
+            {
+                DGRIDV_MODS.BackgroundColor = SystemColors.AppWorkspace;
+                reloadModList();
+                return;
+            }
+            DGRIDV_MODS.ClearSelection();
+            BTN_LAUNCH.Focus();
+            List<Mod> filteredLst = new List<Mod>();
+            foreach (DataGridViewRow r in DGRIDV_MODS.Rows)
+            {
+                Console.WriteLine((bool)r.Cells[0].Value + r.Cells[2].Value.ToString());
+                if ((bool)r.Cells[0].Value)
+                {
+                    filteredLst.Add(new Mod((bool)r.Cells[0].Value, (int)r.Cells[1].Value, pm.MODDIRECTORY, r.Cells[2].Value.ToString()));
+                }
+            }
+            if (filteredLst.Count == 0)
+                return;
+            isRowFiltered = true;
+            DGRIDV_MODS.DataSource = filteredLst;
+            DGRIDV_MODS.BackgroundColor = Color.Firebrick;
         }
     }
 }

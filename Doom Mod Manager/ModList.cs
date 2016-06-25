@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace WMD
@@ -7,7 +9,7 @@ namespace WMD
     {
         readonly PM pm = PM.getInstance();
 
-        public ModList()
+        public ModList(bool filterSelectedOnly = false)
         {
             var directory = new DirectoryInfo(pm.MODDIRECTORY);
             if (!directory.Exists)
