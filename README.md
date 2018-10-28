@@ -8,7 +8,6 @@ WMD is a mod manager for zDoom-like sourceports of doom.
 
 [WMD zDoom Forum thread](http://forum.zdoom.org/viewtopic.php?f=19&t=52340 "zDoom forum thread")
 
-(by the way, if your computer explode while using this app, it's not my fault, and you are not allowed use it to summon an army of daemons, it's in the law)
 
 ## Main features
 - easy to use
@@ -67,7 +66,7 @@ If you want to share your config file for a rad wad you just found on doom-world
 
 Just create the xml file with the references to the wads, create your config file, and tell the users to download the wads by themselves, don't put the wads in the archive (it's stealing if you do. You wouldn't steal a car, would you?).
 
-##Localisation
+## Localisation
 
 You can localise this app through an XML file. A french localisation is already available in the folder locale/fr/.
 
